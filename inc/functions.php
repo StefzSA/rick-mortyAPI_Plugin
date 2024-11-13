@@ -39,7 +39,18 @@ function rm_filter_characters($qry_str){
     return json_decode($body, true); // Return decoded body
 }
 
+
 function rm_filter_characters_page($url){
+    $response = wp_remote_get( $url, ["headers" => ['Content-Type' => 'application/json', 'Accept' => 'application/json']] );
+    
+    if (is_wp_error($response)) return false; // Return false on error
+    
+    $body = wp_remote_retrieve_body($response);
+    return json_decode($body, true); // Return decoded body
+}
+
+function rm_get_all_characters(){
+    $url = 'https://rickandmortyapi.com/api/character';
     $response = wp_remote_get( $url, ["headers" => ['Content-Type' => 'application/json', 'Accept' => 'application/json']] );
     
     if (is_wp_error($response)) return false; // Return false on error

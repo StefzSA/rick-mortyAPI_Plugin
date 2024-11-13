@@ -12,12 +12,13 @@ function rm_shortcode($atts){
   if(rm_detect_recaptcha()){
     $data_recap = 'true';
     $output .= rm_detect_recaptcha();
-  }
-
+  } 
+  $chars = rm_build_results( rm_get_all_characters() );
   // Form output
   $output .= file_get_contents(RM_DIR . 'templates/search_bar.html');
   $output = str_replace('{{title}}', $atts['title'], $output);
   $output = str_replace('{{dataRecap}}', $data_recap, $output);
+  $output = str_replace('{{chars}}', $chars, $output);
   return $output;
 }
 add_shortcode('rm_shortcode', 'rm_shortcode'); //register the shortcode

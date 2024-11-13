@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Rick & Morty API
- * Description: Let's you insert a Search bar for the Rick & Morty API using a shortcode.
+ * Description: Let's you insert a Search bar for characters using a simple shortcode!
  * Version:     1.0.0
  * Author:      Stefano Strippoli
  * License:     GPLv2 or later
