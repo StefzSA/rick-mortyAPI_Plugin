@@ -88,7 +88,8 @@
     flex-wrap: wrap;
     align-content: flex-start;
 }
-.rm_card span{
+.rm_card p{
+    margin: 0;
     width: 100%;
 }
 

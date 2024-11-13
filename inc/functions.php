@@ -67,15 +67,15 @@ function rm_build_results($rm_data){
             <div class="rm_char_img">
                 <img src="'.$result['image'].'" alt="'.$result['name'].'">
             </div>
-            <span>Name: '.$result['name'].'</span>
-            <span>Status: '.$result['status'].'</span>
-            <span>Species: '.$result['species'].'</span>';
+            <p>Name: '.$result['name'].'</p>
+            <p>Status: '.$result['status'].'</p>
+            <p>Species: '.$result['species'].'</p>';
     
         if($result['type']){ 
-          $output .= '<span>Type: '.$result['type'].'</span>';
+          $output .= '<p>Type: '.$result['type'].'</p>';
         } 
     
-        $output .= '<span>Gender: '.$result['gender'].'</span>
+        $output .= '<p>Gender: '.$result['gender'].'</p>
           </div>';
       }
       $output .= '<div class="rm_page-controls">

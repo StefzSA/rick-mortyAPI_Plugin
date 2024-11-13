@@ -12,7 +12,8 @@ function rm_shortcode($atts){
   if(rm_detect_recaptcha()){
     $data_recap = 'true';
     $output .= rm_detect_recaptcha();
-  } 
+  }
+  
   $chars = rm_build_results( rm_get_all_characters() );
   // Form output
   $output .= file_get_contents(RM_DIR . 'templates/search_bar.html');
