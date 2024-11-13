@@ -18,6 +18,7 @@ function rm_settings_page(){
     require(RM_DIR . 'admin/rm_settings_page.php');
 }
 
+//this function builds the query for the filter rm_filter_characters function.
 function rm_build_query($name, $status, $specie, $type, $gender){
     $qry = '?';
     if($name) $qry .= 'name='.urlencode($name).'&';
@@ -29,36 +30,28 @@ function rm_build_query($name, $status, $specie, $type, $gender){
     return $qry;
 }
 
+//This one is for usage along with rn_build_query. Simply pass the query with vars
 function rm_filter_characters($qry_str){
     $url = 'https://rickandmortyapi.com/api/character/' . $qry_str;
     $response = wp_remote_get( $url, ["headers" => ['Content-Type' => 'application/json', 'Accept' => 'application/json']] );
-    
     if (is_wp_error($response)) return false; // Return false on error
-    
-    $body = wp_remote_retrieve_body($response);
-    return json_decode($body, true); // Return decoded body
+    return json_decode( wp_remote_retrieve_body($response) , true); // Return decoded body
 }
 
-
+//This one is for pagination, doesn't require anything more than the url
 function rm_filter_characters_page($url){
     $response = wp_remote_get( $url, ["headers" => ['Content-Type' => 'application/json', 'Accept' => 'application/json']] );
-    
     if (is_wp_error($response)) return false; // Return false on error
-    
-    $body = wp_remote_retrieve_body($response);
-    return json_decode($body, true); // Return decoded body
+    return json_decode( wp_remote_retrieve_body($response) , true); // Return decoded body
 }
 
+//this gets all characters it's only used for first render.
 function rm_get_all_characters(){
-    $url = 'https://rickandmortyapi.com/api/character';
-    $response = wp_remote_get( $url, ["headers" => ['Content-Type' => 'application/json', 'Accept' => 'application/json']] );
-    
+    $response = wp_remote_get( 'https://rickandmortyapi.com/api/character', ["headers" => ['Content-Type' => 'application/json', 'Accept' => 'application/json']] );
     if (is_wp_error($response)) return false; // Return false on error
-    
-    $body = wp_remote_retrieve_body($response);
-    return json_decode($body, true); // Return decoded body
+    return json_decode( wp_remote_retrieve_body($response) , true); // Return decoded body
 }
-
+//this builds all the html that goes inside #rm_results which is the wrapper element.
 function rm_build_results($rm_data){
     $output = '';
     foreach ($rm_data['results'] as $result){

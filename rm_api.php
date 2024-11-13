@@ -33,7 +33,7 @@ function rm_enqueue_scripts(){
   wp_enqueue_script('rm-search-script', plugins_url('/inc/js/scripts.js', __FILE__), array('jquery'), '1.0.0', true);
 
   //localize script for ajax on the search
-  wp_localize_script( 'rm-search-script', 'ajax', array(
+  wp_localize_script( 'rm-search-script', 'ajaxSearch', array(
     'url'    => admin_url( 'admin-ajax.php' ),
     'nonce'  => wp_create_nonce( 'rm_search_nonce' ),
     'action' => 'rm_submit_search'

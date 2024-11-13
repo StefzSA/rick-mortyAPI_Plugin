@@ -76,7 +76,6 @@
     justify-content: center;
     align-items: center;
     min-height: 500px;
-    transition: all .4s ease-in-out;
 }
 
 .rm_card{

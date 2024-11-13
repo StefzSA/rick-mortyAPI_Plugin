@@ -1,6 +1,5 @@
 <?php
-//Callback for the shortcode, prints the api script of recaptcha on detection
-//meaning the two needed keys are set up on the settings page.
+//Callback for the shortcode, prints the api script of recaptcha on detection, which is detected if the two needed keys are set up on the settings page.
 function rm_shortcode($atts){
   $atts = shortcode_atts(array(
     'title' => 'Rick & Morty Search API',
@@ -24,7 +23,7 @@ function rm_shortcode($atts){
 }
 add_shortcode('rm_shortcode', 'rm_shortcode'); //register the shortcode
 
-//Callback for the ajax call which gets data from the form
+//Callback for the ajax call which gets data from the form and returns all the search related characters information
 function rm_submit_search(){
   // Nonce verification, nonce defined at rm_api.php
   if ( ! wp_verify_nonce( $_POST['nonce'], 'rm_search_nonce' ) ) {
