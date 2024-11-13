@@ -1,0 +1,24 @@
+<h3 id="rm_title">{{title}}</h3>
+<form id="rm_search" method="post" data-recap={{dataRecap}}>
+    <div class="rm-data-box">
+        <input type="text" id="rm_name" name="rm_name" placeholder="Rick Sanchez"><br>
+        <select name="rm_status" id="rm_status">
+            <option value="alive" default>Alive</option>
+            <option value="dead">Dead</option>
+            <option value="unknown">Unknown</option>
+        </select>
+        <input type="text" id="rm_species" name="rm_species" placeholder="Human"><br>
+        <input type="text" id="rm_type" name="rm_type" placeholder="Subspecie"><br>
+        <select name="rm_gender" id="rm_gender">
+            <option value="male" default>Male</option>
+            <option value="female">Female</option>
+            <option value="genderless">Genderless</option>
+            <option value="unknown">Unknown</option>    
+        </select>
+        <input id="rm_submit" type="submit" value="Submit">
+    </div>
+    <div class="rm-form-controls">
+        <div id="rm_query_response" class="response"></div>
+    </div>
+</form>
+<div id="rm_results"></div>

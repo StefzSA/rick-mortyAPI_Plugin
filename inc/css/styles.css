@@ -1,0 +1,103 @@
+#rm_title{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.rm-data-box{
+    display: flex;
+    gap: 0.3125rem;
+}
+
+.rm-data-box input, select{
+    transition: all .3s ease-in-out;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: transparent;
+    border:none;
+    border-bottom: 1px solid black;
+    outline: none;
+    position: relative;
+}
+
+
+.rm-data-box  select {
+	appearance: none;
+	-webkit-appearance: none;
+	width: 100%;
+	padding: 5px 10px 5px 10px;
+}
+
+.rm-data-box select::after {
+	content: "&#8964";
+	position: absolute;
+	pointer-events: none;
+	top: 50%;
+	right: 0;
+	width: 16px;
+	height: 16px;
+	background-color: #000000;
+	clip-path: polygon(50% 80%, 0 20%, 100% 20%);
+}
+
+.rm-data-box input:focus, select:focus{
+    transition: all .3s ease-in-out;
+    background-color: rgba(0,0,0,0.05);
+    border:none;
+    border-bottom: 1px solid black;
+}
+
+
+.rm-data-box #rm_submit{
+    transition: all 0.3s ease-in-out;
+    background: rgb(72, 247, 188);
+    border:none;
+    text-transform: uppercase;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.rm-data-box #rm_submit:hover{
+    transition: all 0.3s ease-in-out;
+    background: rgb(32, 107, 82);
+    color:white;
+    border:none;
+}
+
+.rm-data-box #rm_species{
+    max-width: 4rem;
+}
+
+.rm-data-box #rm_type{
+    max-width: 4rem;
+}
+
+#rm_results{
+    display: flex;
+    gap:0.625rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.rm_card{
+    min-width:25%;
+    max-width: 45%;
+    min-height: 450px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap:0.625rem;
+    flex-wrap: wrap;
+    align-content: flex-start;
+}
+.rm_card span{
+    width: 100%;
+}
+
+.rm_card .rm_char_img{
+    min-height: 100px;
+    max-width: 280px;
+}
+
+.rm_card .rm_char_img img{
+    height: auto;
+    width: 100%;
+}
