@@ -62,26 +62,30 @@ function rm_get_all_characters(){
 function rm_build_results($rm_data){
     $output = '';
     foreach ($rm_data['results'] as $result){
-        $output .= '
-        <div class="rm_card">
-            <div class="rm_char_img">
-                <img src="'.$result['image'].'" alt="'.$result['name'].'">
-            </div>
-            <p>Name: '.$result['name'].'</p>
-            <p>Status: '.$result['status'].'</p>
-            <p>Species: '.$result['species'].'</p>';
+        $output .= '<div class="rm_card">';
+        $output .= '<div class="rm_char_img">';
+        $output .= '<img src="'.$result['image'].'" alt="'.$result['name'].'">';
+        $output .= '</div>';
+        $output .= '<div id="rm_cardinfo">';
+        $output .= '<p><span>Name: </span>'.$result['name'].'</p>';
+        $output .= '<p><span>Status: </span>'.$result['status'].'</p>';
+        $output .= '<p><span>Species: </span>'.$result['species'].'</p>';
     
         if($result['type']){ 
-          $output .= '<p>Type: '.$result['type'].'</p>';
+          $output .= '<p><span>Type: </span>'.$result['type'].'</p>';
         } 
     
-        $output .= '<p>Gender: '.$result['gender'].'</p>
-          </div>';
-      }
-      $output .= '<div class="rm_page-controls">
-                      <a class="rm_ctrl" data-rm-url="'.$rm_data['info']['prev'].'">Previous</a>
-                      <a class="rm_ctrl" data-rm-url="'.$rm_data['info']['next'].'">Next</a>
-                  </div>';
+        $output .= '<p><span>Gender: </span>'.$result['gender'].'</p>';
+        $output .= '</div></div>';
+      } 
+      
+      $prev_dis = ( !($rm_data['info']['prev']) )? 'disabled' : '';
+      $next_dis = ( !($rm_data['info']['next']) )? 'disabled' : '';
+
+      $output .= '<div class="rm_page-controls">';
+      $output .= '<a class="rm_ctrl '. $prev_dis .'" data-rm-url="'.$rm_data['info']['prev'].'"'. $prev_dis .'>Previous</a>';
+      $output .= '<a class="rm_ctrl '. $next_dis .'" data-rm-url="'.$rm_data['info']['next'].'"'. $next_dis .'>Next</a>';
+      $output .= '</div>';
       return $output;
 }
 //Detects if recaptcha settings on the page have anything.
@@ -99,15 +103,7 @@ function rm_detect_recaptcha(){
 }
 
 //Uses cURL to validate the token from the form with the secret key from the settings page.
-function recaptcha_validation(){
-    $token = $_POST['token'];
-    $response = wp_remote_post( "https://www.google.com/recaptcha/api/siteverify", array('secret' =>  get_option('rm_recaptcha_secret_key'), 'response' => $token));
-    
-    if (is_wp_error($response)) return false; // Return false on error
-    
-    $body = wp_remote_retrieve_body($response);
-    return json_decode($body, true); // Return decoded body
-
+function recaptcha_validation($token){
 
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, "https://www.google.com/recaptcha/api/siteverify");

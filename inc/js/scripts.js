@@ -1,4 +1,5 @@
 jQuery(document).ready(function ($) {
+
   $("#rm_search").submit(function (e) {
     e.preventDefault();
     //sets the data for ajax call
@@ -14,10 +15,11 @@ jQuery(document).ready(function ($) {
 
     if ($(this).data("recap") == true) {
       grecaptcha.ready(function () {
-        grecaptcha.execute(siteKey, { action: "rm_search" }).then(function (token) {
-            $("#rm_search").prepend('<input type="hidden" id="recaptcha_token" name="token" value="' + token +'">');
-            rm_clearResponse();
-            data += { token: $("#recaptcha_token").val() };
+        grecaptcha
+          .execute(siteKey, { action: "rm_search" })
+          .then(function (token) {
+            $("#rm_search").prepend('<input type="hidden" id="recaptcha_token" name="token" value="' +token +'">');
+            data.token = $("#recaptcha_token").val();
             validateName();
             apiFetch(data, ajax.url);
           });
@@ -29,11 +31,10 @@ jQuery(document).ready(function ($) {
     }
   });
 
-
-  function rm_clearResponse(){
+  function rm_clearResponse() {
     $(".rm-error-message").remove();
     $("#query_response").empty();
-    $("#rm_results").empty();
+    $("#rm_results").fadeOut();
     $("#query_response").removeClass("r-success").removeClass("r-error");
   }
 
@@ -55,6 +56,7 @@ jQuery(document).ready(function ($) {
       success: function (response) {
         jQuery(".rm-error-message").remove();
         if (response.success) {
+          rm_clearResponse();
           jQuery("div#rm_results").html(response.html);
           jQuery("div#rm_results").fadeIn();
         }
@@ -66,7 +68,6 @@ jQuery(document).ready(function ($) {
       },
     });
   }
-  
 
   function apiFetchPage(data, url) {
     jQuery.ajax({
@@ -88,20 +89,34 @@ jQuery(document).ready(function ($) {
     });
   }
 
-  $(document).on( "click", ".rm_ctrl", function(e) {
-      e.preventDefault();
-      if ($(this).attr("data-rm-url") != "") {
-          const data = {
-              pageUrl: $(this).attr("data-rm-url"),
-              nonce: ajaxPage.nonce,
-              action: ajaxPage.action,
-          }
-          apiFetchPage(data, ajaxPage.url);
+  $(document).on("click", ".rm_ctrl", function (e) {
+    const ctrlPage = $(this);
+    e.preventDefault();
+    if ($('#rm_search').data("recap") == true) {
+      grecaptcha.ready(function () {
+        grecaptcha
+          .execute(siteKey, { action: "rm_search" })
+          .then(function (token) {
+            if ( ctrlPage.attr("data-rm-url") != "" ) {
+              const data = {
+                pageUrl: ctrlPage.attr("data-rm-url"),
+                nonce: ajaxPage.nonce,
+                action: ajaxPage.action,
+                token: token,
+              };
+              apiFetchPage(data, ajaxPage.url);
+            }
+          });
+      });
+    } else {
+      if (ctrlPage.attr("data-rm-url") != "") {
+        const data = {
+          pageUrl: ctrlPage.attr("data-rm-url"),
+          nonce: ajaxPage.nonce,
+          action: ajaxPage.action,
+        };
+        apiFetchPage(data, ajaxPage.url);
       }
+    }
   });
-
 });
-
-
-
-

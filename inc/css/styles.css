@@ -75,6 +75,8 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    min-height: 500px;
+    transition: all .4s ease-in-out;
 }
 
 .rm_card{
@@ -87,12 +89,26 @@
     gap:0.625rem;
     flex-wrap: wrap;
     align-content: flex-start;
+    border-radius: 12px;
+    background-color: rgb(255, 242, 226);
+    overflow: hidden;
+    border: 1px solid black;
+}
+#rm_cardinfo{
+    width: 100%;
+    padding: 15px 25px;
+    display: flex;
+    row-gap: 0.225rem;
+    flex-wrap: wrap;
 }
 .rm_card p{
     margin: 0;
     width: 100%;
+    font-size: 0.775rem;
 }
-
+.rm_card p>span{
+    font-weight: 800;
+}
 .rm_card .rm_char_img{
     min-height: 100px;
     max-width: 280px;
@@ -101,6 +117,8 @@
 .rm_card .rm_char_img img{
     height: auto;
     width: 100%;
+    min-height: 279px;
+    aspect-ratio: 4/4;
 }
 
 .rm_page-controls{
@@ -113,14 +131,22 @@
 }
 
 .rm_page-controls a{
+    text-decoration: none;
     transition: all 0.3s ease-in-out;
     padding: 15px 30px;
     background-color: rgb(72, 247, 188);
     cursor: pointer;
     border-radius: 5px;
+    min-width: 70px;
+    text-align: center;
+}
+.rm_page-controls a:disabled, .rm_ctrl.disabled{
+    transition: all 0.3s ease-in-out;
+    background-color: rgba(72, 247, 188, 0.3);
+    cursor:unset;
 }
 
-.rm_page-controls a:hover{
+.rm_page-controls a:hover:not(.rm_ctrl.disabled){
     transition: all 0.3s ease-in-out;
     padding: 15px 30px;
     background-color: rgb(32, 107, 82);
