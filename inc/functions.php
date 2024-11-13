@@ -1,7 +1,6 @@
 <?
 //sanitizes post data and returns sanitized in an array
-function rm_sanitize()
-{
+function rm_sanitize(){
     // Sanitize data
     $name   = sanitize_text_field($_POST['rm_name']);
     $species = sanitize_text_field($_POST['rm_species']);
@@ -40,6 +39,40 @@ function rm_filter_characters($qry_str){
     return json_decode($body, true); // Return decoded body
 }
 
+function rm_filter_characters_page($url){
+    $response = wp_remote_get( $url, ["headers" => ['Content-Type' => 'application/json', 'Accept' => 'application/json']] );
+    
+    if (is_wp_error($response)) return false; // Return false on error
+    
+    $body = wp_remote_retrieve_body($response);
+    return json_decode($body, true); // Return decoded body
+}
+
+function rm_build_results($rm_data){
+    $output = '';
+    foreach ($rm_data['results'] as $result){
+        $output .= '
+        <div class="rm_card">
+            <div class="rm_char_img">
+                <img src="'.$result['image'].'" alt="'.$result['name'].'">
+            </div>
+            <span>Name: '.$result['name'].'</span>
+            <span>Status: '.$result['status'].'</span>
+            <span>Species: '.$result['species'].'</span>';
+    
+        if($result['type']){ 
+          $output .= '<span>Type: '.$result['type'].'</span>';
+        } 
+    
+        $output .= '<span>Gender: '.$result['gender'].'</span>
+          </div>';
+      }
+      $output .= '<div class="rm_page-controls">
+                      <a class="rm_ctrl" data-rm-url="'.$rm_data['info']['prev'].'">Previous</a>
+                      <a class="rm_ctrl" data-rm-url="'.$rm_data['info']['next'].'">Next</a>
+                  </div>';
+      return $output;
+}
 //Detects if recaptcha settings on the page have anything.
 //returns a script to add the recaptcha api with the site key to the head
 //used at the form shortcode function rm_shortcode()

@@ -101,3 +101,27 @@
     height: auto;
     width: 100%;
 }
+
+.rm_page-controls{
+    margin-top:64px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.rm_page-controls a{
+    transition: all 0.3s ease-in-out;
+    padding: 15px 30px;
+    background-color: rgb(72, 247, 188);
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.rm_page-controls a:hover{
+    transition: all 0.3s ease-in-out;
+    padding: 15px 30px;
+    background-color: rgb(32, 107, 82);
+    color: white;
+}

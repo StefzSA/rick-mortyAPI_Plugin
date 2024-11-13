@@ -15,54 +15,93 @@ jQuery(document).ready(function ($) {
     if ($(this).data("recap") == true) {
       grecaptcha.ready(function () {
         grecaptcha.execute(siteKey, { action: "rm_search" }).then(function (token) {
-          $("#rm_search").prepend('<input type="hidden" id="recaptcha_token" name="token" value="' +token +'">');
-          // Clear any previous error messages or response
-          $(".rm-error-message").remove();
-          $("#rm_response").empty();
-          $("#rm_results").empty();
-          $("#rm_response").removeClass("r-success").removeClass("r-error");
-          data += {token: $("#recaptcha_token").val()};
-
-          validateName();
-          apiFetch(data, ajax.url);
-        });
+            $("#rm_search").prepend('<input type="hidden" id="recaptcha_token" name="token" value="' + token +'">');
+            rm_clearResponse();
+            data += { token: $("#recaptcha_token").val() };
+            validateName();
+            apiFetch(data, ajax.url);
+          });
       });
     } else {
-      // Clear any previous error messages or response
-      $(".rm-error-message").remove();
-      $("#query_response").empty();
-      $("#rm_results").empty();
-      $("#query_response").removeClass("r-success").removeClass("r-error");
-
+      rm_clearResponse();
       validateName();
       apiFetch(data, ajax.url);
     }
   });
 
+
+  function rm_clearResponse(){
+    $(".rm-error-message").remove();
+    $("#query_response").empty();
+    $("#rm_results").empty();
+    $("#query_response").removeClass("r-success").removeClass("r-error");
+  }
+
   function validateName() {
     if ($.trim($("#rm_name").val()) === "") {
-      $("#query_response").after('<span class="rm-error-message">Please enter a name.</span>');
+      $("#query_response").after(
+        '<span class="rm-error-message">Please enter a name.</span>'
+      );
       return false;
     }
   }
 
-  function apiFetch(data, url){
-    $.ajax({
+  function apiFetch(data, url) {
+    jQuery.ajax({
       url: url,
       type: "POST",
       data: data,
       dataType: "json",
       success: function (response) {
-        $(".rm-error-message").remove();
+        jQuery(".rm-error-message").remove();
         if (response.success) {
-          $("#rm_results").data("pageno", '1').hide().html(response.html).fadeIn();
+          jQuery("div#rm_results").html(response.html);
+          jQuery("div#rm_results").fadeIn();
         }
       },
       error: function () {
-        $("#rm_query_response").addClass("r-error").text("An error has occurred!");
+        jQuery("#rm_query_response")
+          .addClass("r-error")
+          .text("An error has occurred!");
+      },
+    });
+  }
+  
+
+  function apiFetchPage(data, url) {
+    jQuery.ajax({
+      url: url,
+      type: "POST",
+      data: data,
+      dataType: "json",
+      success: function (response) {
+        if (response.success) {
+          jQuery("div#rm_results").html(response.html);
+          jQuery("div#rm_results").fadeIn();
+        }
+      },
+      error: function () {
+        jQuery("#rm_query_response")
+          .addClass("r-error")
+          .text("An error has occurred!");
       },
     });
   }
 
+  $(document).on( "click", ".rm_ctrl", function(e) {
+      e.preventDefault();
+      if ($(this).attr("data-rm-url") != "") {
+          const data = {
+              pageUrl: $(this).attr("data-rm-url"),
+              nonce: ajaxPage.nonce,
+              action: ajaxPage.action,
+          }
+          apiFetchPage(data, ajaxPage.url);
+      }
+  });
 
 });
+
+
+
+
