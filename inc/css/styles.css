@@ -75,12 +75,12 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    margin-top: 6rem;
     min-height: 500px;
 }
 
 .rm_card{
-    min-width:25%;
-    max-width: 45%;
+    max-width: 280px;
     min-height: 450px;
     font-size: 14px;
     display: flex;
@@ -110,13 +110,13 @@
 }
 .rm_card .rm_char_img{
     min-height: 100px;
-    max-width: 280px;
+    max-width: 100%;
 }
 
 .rm_card .rm_char_img img{
     height: auto;
     width: 100%;
-    min-height: 279px;
+    min-height: 100%;
     aspect-ratio: 4/4;
 }
 

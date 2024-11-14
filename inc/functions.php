@@ -54,6 +54,7 @@ function rm_get_all_characters(){
 //this builds all the html that goes inside #rm_results which is the wrapper element.
 function rm_build_results($rm_data){
     $output = '';
+    if($rm_data['results']){
     foreach ($rm_data['results'] as $result){
         $output .= '<div class="rm_card">';
         $output .= '<div class="rm_char_img">';
@@ -71,6 +72,9 @@ function rm_build_results($rm_data){
         $output .= '<p><span>Gender: </span>'.$result['gender'].'</p>';
         $output .= '</div></div>';
       } 
+    }else{
+        $output .= '<h2><span>Ooh wee, nothing to see here!</span></h2>';
+    }
       
       $prev_dis = ( !($rm_data['info']['prev']) )? 'disabled' : '';
       $next_dis = ( !($rm_data['info']['next']) )? 'disabled' : '';
