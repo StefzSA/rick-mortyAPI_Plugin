@@ -31,7 +31,7 @@ function rm_build_query($name, $status, $specie, $type, $gender){
 
 /* This one is for usage along with rn_build_query. Simply pass the query with vars*/
 function rm_filter_characters($qry_str){
-    $url = 'https:/* rickandmortyapi.com/api/character/' . $qry_str;
+    $url = 'https://rickandmortyapi.com/api/character/' . $qry_str;
     $response = wp_remote_get( $url, ["headers" => ['Content-Type' => 'application/json', 'Accept' => 'application/json']] );
     if (is_wp_error($response)) return false; 
     return json_decode( wp_remote_retrieve_body($response) , true); 
@@ -46,7 +46,7 @@ function rm_filter_characters_page($url){
 
 /* this gets all characters it's only used for first render.*/
 function rm_get_all_characters(){
-    $response = wp_remote_get( 'https:/* rickandmortyapi.com/api/character', ["headers" => ['Content-Type' => 'application/json', 'Accept' => 'application/json']] );
+    $response = wp_remote_get( 'https://rickandmortyapi.com/api/character', ["headers" => ['Content-Type' => 'application/json', 'Accept' => 'application/json']] );
     if (is_wp_error($response)) return false; 
     return json_decode( wp_remote_retrieve_body($response) , true);
 }
@@ -91,7 +91,7 @@ function rm_detect_recaptcha(){
     if ( !empty(get_option('rm_recaptcha_site_key')) and !empty(get_option('rm_recaptcha_secret_key'))) {
         $output = '<script>';
         $output .= "const siteKey = '" . get_option('rm_recaptcha_site_key') . "';\n";
-        $output .= 'if (siteKey) { const script = document.createElement("script");script.src = `https:/* www.google.com/recaptcha/api.js?render=${siteKey}`; document.head.appendChild(script); }';
+        $output .= 'if (siteKey) { const script = document.createElement("script");script.src = `https://www.google.com/recaptcha/api.js?render=${siteKey}`; document.head.appendChild(script); }';
         $output .= '</script>';
         return $output;
     }
@@ -101,7 +101,7 @@ function rm_detect_recaptcha(){
 /* Uses cURL to validate the token from the form with the secret key from the settings page.*/
 function recaptcha_validation($token){
     $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, "https:/* www.google.com/recaptcha/api/siteverify");
+    curl_setopt($ch, CURLOPT_URL, "https://www.google.com/recaptcha/api/siteverify");
     curl_setopt($ch, CURLOPT_POST, 1);
     curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(array('secret' =>  get_option('rm_recaptcha_secret_key'), 'response' => $token)));
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
