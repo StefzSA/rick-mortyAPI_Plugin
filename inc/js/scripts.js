@@ -1,7 +1,7 @@
 jQuery(document).ready(function ($) {
   $("#rm_search").submit(function (e) {
     e.preventDefault();
-    /* sets the data for ajax call
+    /* sets the data for ajax call*/
     const data = {
       rm_name: $("#rm_name").val(),
       rm_status: $("#rm_status").val(),
