@@ -5,6 +5,9 @@
 .rm-data-box{
     display: flex;
     gap: 0.3125rem;
+    max-width: 780px;
+    width: 100%;
+    margin:0 auto;
 }
 
 .rm-data-box input, select{
@@ -62,11 +65,11 @@
 }
 
 .rm-data-box #rm_species{
-    max-width: 4rem;
+    max-width: 8rem;
 }
 
 .rm-data-box #rm_type{
-    max-width: 4rem;
+    max-width: 8rem;
 }
 
 #rm_results{
@@ -75,7 +78,7 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    margin-top: 6rem;
+    margin-top: 48px;
     min-height: 500px;
 }
 
@@ -150,4 +153,46 @@
     padding: 15px 30px;
     background-color: rgb(32, 107, 82);
     color: white;
+}
+
+#rm_main-wrapper{
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+@media only screen and (max-width: 768px) {
+    .rm-data-box{
+        display: flex;
+        gap: 0.3125rem;
+        max-width: 780px;
+        width: 100%;
+        flex-wrap: wrap;
+        margin: 0 auto;
+        row-gap: 0.75rem;
+    }
+
+    .rm-data-box input, select{
+        flex-grow: 1;
+    }
+    .rm-data-box #rm_species{
+        max-width: 50%;
+    }
+    
+    .rm-data-box #rm_type{
+        max-width: 50%;
+    }
+
+    .rm_page-controls {
+        row-gap: 3rem;
+    }
+    .rm_page-controls a {
+        text-decoration: none;
+        transition: all 0.3s ease-in-out;
+        padding: 7.5px 20px;
+        background-color: rgb(72, 247, 188);
+        cursor: pointer;
+        border-radius: 5px;
+        min-width: 70px;
+        text-align: center;
+    }
 }
