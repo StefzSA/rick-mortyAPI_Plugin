@@ -22,22 +22,16 @@
 
 
 .rm-data-box  select {
-	appearance: none;
-	-webkit-appearance: none;
+    appearance: none;
+    -webkit-appearance: none;
 	width: 100%;
 	padding: 5px 10px 5px 10px;
-}
-
-.rm-data-box select::after {
-	content: "&#8964";
-	position: absolute;
-	pointer-events: none;
-	top: 50%;
-	right: 0;
-	width: 16px;
-	height: 16px;
-	background-color: #000000;
-	clip-path: polygon(50% 80%, 0 20%, 100% 20%);
+    outline: none;
+    outline-color: transparent;
+    background-image: url(../img/chevron-down.svg);
+    background-position: center right;
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 
 .rm-data-box input:focus, select:focus{
